@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %} Home {% endblock %}
+{% block content %}
+
+<h3 align="center">Messages</h3>
+
+<ul class="list-group list-group-flush" id="msg">
+    {% for m in message %} 
+    <li class="list-group-item">{{m[1]}}
+        <button type="button" class="close" onclick="deleteMessage({{m[0]}},'{{m[1]}}',{{m[2]}})">
+        <span aria-hidden= "true" >&times;</span>
+        </button>
+    </li>
+   
+    {% endfor %}
+</ul>
+
+<!-- <form method="GET">
+    <input type="hidden" name="user_id" value={{user.user_id}}>
+    <input type="submit" value="refresh" class="btn btn-primary">
+</form> -->
+
+
+<form method="POST">
+    <textarea id="msg" name="msg" class="form-control"></textarea>
+    <input type="hidden" name="user_id" value={{user.user_id}}>
+    <input type="submit" value="Save" class="btn btn-primary">
+</form>
+
+{% endblock %}
