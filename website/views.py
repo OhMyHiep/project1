@@ -19,5 +19,6 @@ def home():
 @login_required
 def deleteMessage():
     msgData=json.loads(request.data)
+    print('\n',msgData)
     deleted=MessageController.deleteMessage(msgData['msg_obj'])
     return jsonify({})
