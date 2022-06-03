@@ -7,3 +7,5 @@ def signUp(formData):
        result=SignUpService.signUp(formData)
        return "failed Registration" if result==None else redirect(url_for("auth.login"))
     return render_template("sign-up.html", user=current_user)
+
+    

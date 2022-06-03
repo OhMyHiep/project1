@@ -2,17 +2,30 @@ from flask import Flask
 from flask_login import LoginManager
 from models import UserDto 
 from service import userService
+from flask_sqlalchemy import SQLAlchemy
+from website import config_psql
+from sqlalchemy_utils import database_exists, create_database
+
+
+db= SQLAlchemy()
+params=config_psql.config()
+print("\n",params['user'],"\n")
 
 
 def create_app():
     app=Flask(__name__)
     app.config['SECRET_KEY']='python'
+    app.config['SQLALCHEMY_DATABASE_URI']= f"postgresql://{params['user']}:{params['password']}@{params['host']}:{params['port']}/{params['name']}"
+    db.init_app(app)
 
     from .views import views
     from .auth import auth
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
+
+    engine=db.create_engine(f"postgresql://{params['user']}:{params['password']}@{params['host']}:{params['port']}/{params['name']}",{})
+    createDatabase(engine,app)
 
     login_manager=LoginManager()
     login_manager.login_view="auth.login"
@@ -30,3 +43,9 @@ def create_app():
         return user
 
     return app
+
+
+def createDatabase(engine,app):
+    if not database_exists(engine.url):
+        # create_database(engine.url)
+        pass
