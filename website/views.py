@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, request
 from dao.DatabaseUtil import *
 from flask_login import login_required, current_user
-from controller import MessageController
+from controller import MessageController, EmployeeController
+
 import json
 
 
@@ -22,3 +23,10 @@ def deleteMessage():
     print('\n',msgData)
     deleted=MessageController.deleteMessage(msgData['msg_obj'])
     return jsonify({})
+
+@views.route('/sample-test')
+def testing_db():
+    # EmployeeController.addEmployee()
+    EmployeeController.getEmployeeById()
+    return " "
+    

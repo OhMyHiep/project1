@@ -12,5 +12,3 @@ def getUserById(user_id):
     WHERE user_id=%s;"""
     return executeSimpleQuery(sql,user_id)
 
-def addEmployee(employee):
-    db.session.add(employee)

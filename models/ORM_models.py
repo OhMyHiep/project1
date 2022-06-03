@@ -6,6 +6,11 @@ EmployeRole=db.Table("EmployeRole",
     db.Column('role_id', db.Integer,db.ForeignKey('role.role_id'))
 )
 
+class Role(db.Model):
+    role_id=db.Column(db.Integer,primary_key=True)
+    roleTitle= db.Column(db.String(50))
+
+
 class Employee(db.Model,UserMixin):
     employee_id=db.Column(db.Integer,primary_key=True)
     firstName=db.Column(db.String(50))
@@ -13,14 +18,10 @@ class Employee(db.Model,UserMixin):
     email=db.Column(db.String(50))
     username=db.Column(db.String(50))
     password=db.Column(db.String(255))
-    roles= db.relationship('Roles',secondary=EmployeRole,backref="employees")
+    roles= db.relationship('Role',secondary=EmployeRole,backref="employees")
     requests=db.relationship('Request')
     __table_args__ = (db.UniqueConstraint('email',"username", name='unique_Email_username'),
                      )
-
-class Role(db.Model):
-    role_id=db.Column(db.Integer,primary_key=True)
-    roleTitle= db.Column(db.String(50))
 
 
 class Category(db.Model):
