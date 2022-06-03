@@ -24,6 +24,8 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
+    from models.ORM_models import Employee, Role, Request, EmployeRole, Category
+
     engine=db.create_engine(f"postgresql://{params['user']}:{params['password']}@{params['host']}:{params['port']}/{params['name']}",{})
     createDatabase(engine,app)
 
@@ -47,5 +49,6 @@ def create_app():
 
 def createDatabase(engine,app):
     if not database_exists(engine.url):
-        # create_database(engine.url)
-        pass
+        create_database(engine.url)
+        db.create_all(app=app)
+        print("\ndatabase created!\n")
