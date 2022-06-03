@@ -1,10 +1,9 @@
 from flask import Flask
 from flask_login import LoginManager
-from models import UserDto 
-from service import userService
 from website import config_psql
 from sqlalchemy_utils import database_exists, create_database
 from dao.DB_orm import db
+from models.ORM_models import Employee
 
 
 params=config_psql.config()
@@ -33,12 +32,10 @@ def create_app():
     login_manager.init_app(app)
 
     @login_manager.user_loader
-    def user_loader(user_id):
-        user_info=userService.getUserbyId(user_id)
-        if int(user_id) not in user_info[0]:
-            return
-        user = UserDto.User(user_info[0][0],user_info[0][1],user_info[0][2],user_info[0][3])
-        return user
+    def user_loader(id):
+        return Employee.query.filter_by(employee_id=id).first()
+
+
 
     return app
 

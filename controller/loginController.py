@@ -9,16 +9,14 @@ from models import UserDto
 
 
 def login(loginData):
-    user_info=LoginService.loginUser(loginData)
-    if (len(user_info)==0):
+    employee=LoginService.loginUser(loginData)
+    if not employee:
         return "failed login"
-    login_user(UserDto.User(user_info[0][0],user_info[0][1],user_info[0][2],user_info[0][3]),remember=True)
-    return render_template("home.html", user=current_user)
+    login_user(employee,remember=True)
+    return render_template("home.html", employee=current_user)
    
 
 
 
-
-
 def loginPage():
-    return render_template("login.html",user=current_user)
+    return render_template("login.html",employee=current_user)

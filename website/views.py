@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from dao.DatabaseUtil import *
 from flask_login import login_required, current_user
 from controller import MessageController, EmployeeController
-
+import hashlib
 import json
 
 
@@ -27,6 +27,9 @@ def deleteMessage():
 @views.route('/sample-test')
 def testing_db():
     # EmployeeController.addEmployee()
+    password="password"
+    print(hashlib.sha256(password.encode("utf-8")).hexdigest())
+
     EmployeeController.getEmployeeById()
     return " "
     

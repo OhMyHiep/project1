@@ -1,23 +1,25 @@
-from dao import LoginDao
+from dao.DB_orm import db
+from models.ORM_models import Employee 
+import hashlib
 
-
-def isValidLogin(loginData)->bool:
-    return validateUsername(loginData.get("username")) and validateUsername(loginData.get("password1"))
 
 def loginUser(loginData):
-    return LoginDao.getUserIDBylogin(loginData.get("username"),loginData.get("password1"))
+    employee=Employee.query.filter_by(username=loginData.get('username')).first()
+    print('\n',employee.password,"\n")
 
-def validateUsername(username)->bool:
-    if username is not None:
-        username=username.strip()
-        return len(username)>5 and len(username)<20
-    return False
+    if employee and validatePassword(loginData.get("password1"),employee.password):
+        return employee
+    return None
 
-def validatePassword(password)->bool:
-    if password is not None:
-        password=password.strip()
-        return password is not None and len(password)>5
+
+
+
+
+def validatePassword(input_password,queried_password)->bool:
+    if hashlib.sha256(input_password.encode("utf-8")).hexdigest() == queried_password:
+        return True
     return False
     
+
 
 

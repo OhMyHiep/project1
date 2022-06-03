@@ -20,8 +20,11 @@ class Employee(db.Model,UserMixin):
     password=db.Column(db.String(255))
     roles= db.relationship('Role',secondary=EmployeRole,backref="employees")
     requests=db.relationship('Request')
-    __table_args__ = (db.UniqueConstraint('email',"username", name='unique_Email_username'),
-                     )
+    __table_args__ = (db.UniqueConstraint('email',"username", name='unique_Email_username'),)
+    
+    
+    def get_id(self):
+           return int(self.employee_id)
 
 
 class Category(db.Model):
