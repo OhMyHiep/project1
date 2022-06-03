@@ -1,6 +1,7 @@
 from dao.DatabaseUtil import *
 import hashlib
 
+
 def insertLogin(connection,username,password):
     sql="""INSERT INTO Login (username,password) VALUES (%s,%s) RETURNING login_id;"""
     result=executeQuery(connection,sql,username,hashlib.sha256(password.encode("utf-8")).hexdigest())
@@ -13,3 +14,4 @@ def getUserIDBylogin(username,password):
     result=executeSimpleQuery(sql,username,hashlib.sha256(password.encode("utf-8")).hexdigest())
     print(f"(user info :{result})")
     return result 
+

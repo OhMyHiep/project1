@@ -2,14 +2,13 @@ from flask import Flask
 from flask_login import LoginManager
 from models import UserDto 
 from service import userService
-from flask_sqlalchemy import SQLAlchemy
 from website import config_psql
 from sqlalchemy_utils import database_exists, create_database
+from dao.DB_orm import db
 
 
-db= SQLAlchemy()
 params=config_psql.config()
-print("\n",params['user'],"\n")
+# print("\n",params['user'],"\n")
 
 
 def create_app():
@@ -36,9 +35,6 @@ def create_app():
     @login_manager.user_loader
     def user_loader(user_id):
         user_info=userService.getUserbyId(user_id)
-        # print(f"user id: {user_id}")
-        # print(f"(queried Id: {user_info[0][0]})")
-        # print(int(user_id) not in user_info[0])
         if int(user_id) not in user_info[0]:
             return
         user = UserDto.User(user_info[0][0],user_info[0][1],user_info[0][2],user_info[0][3])

@@ -6,7 +6,6 @@ import os
 
 def config(fileName='config.ini',section='database'):
     db={}
-    print(os.path.isfile(fileName))
     if os.path.isfile(fileName):
         parser=ConfigParser()
         parser.read(fileName)

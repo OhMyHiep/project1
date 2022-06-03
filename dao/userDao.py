@@ -1,5 +1,5 @@
 from dao.DatabaseUtil import *
-
+from dao.DB_orm import db
 
 def insertUser(connection,firstName,lastName,email,login_id):
     sql="""INSERT INTO USERS (firstname, lastname, email, login_id) VALUES(%s,%s,%s,%s) RETURNING user_id;"""
@@ -12,3 +12,5 @@ def getUserById(user_id):
     WHERE user_id=%s;"""
     return executeSimpleQuery(sql,user_id)
 
+def addEmployee(employee):
+    db.session.add(employee)
