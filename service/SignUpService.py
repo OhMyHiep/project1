@@ -1,8 +1,7 @@
 from models.UserDto import *
 from models.signUp import *
-from dao import LoginDao
-from dao import userDao
-from dao import DatabaseUtil
+from models.ORM_models import Employee
+from dao.DB_orm import db
 import re
 
 def isValidRegistration(formData):
@@ -19,12 +18,11 @@ def isValidRegistration(formData):
 
 
 def signUp(formData):
-    connection = DatabaseUtil.getConnection()
-    login_id=LoginDao.insertLogin(connection,formData.get("username").strip(),formData.get("password1").strip())
-    user_id=userDao.insertUser(connection,formData.get("firstName").strip(),formData.get("lastName").strip(),formData.get("email").strip(),login_id)
-    DatabaseUtil.commit(connection)
-    DatabaseUtil.close(connection)
-    return user_id
+    new_employee = Employee(firstName=formData.get("firstName"),lastName=formData.get("lastName"),email=formData.get("email"),username=formData.get("username"),password=formData.get("password"))
+    db.session.add(new_employee)
+    db.session.commit()
+    print(f"Employee_id {new_employee.employee_id}")
+    return new_employee.employee_id
     
 
 

@@ -6,6 +6,6 @@ def signUp(formData):
     if(SignUpService.isValidRegistration(formData)):
        result=SignUpService.signUp(formData)
        return "failed Registration" if result==None else redirect(url_for("auth.login"))
-    return render_template("sign-up.html", user=current_user)
+    return render_template("sign-up.html", employee=current_user)
 
     
