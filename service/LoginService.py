@@ -5,7 +5,7 @@ import hashlib
 
 def loginUser(loginData):
     employee=Employee.query.filter_by(username=loginData.get('username')).first()
-    print('\n',employee.password,"\n")
+    # print('\n',employee.password,"\n")
 
     if employee and validatePassword(loginData.get("password1"),employee.password):
         return employee
