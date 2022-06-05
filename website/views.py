@@ -1,7 +1,7 @@
 from crypt import methods
 from flask import Blueprint, request, render_template
 from flask_login import login_required, current_user
-from controller import EmployeeController, CategoryController
+from controller import EmployeeController, CategoryController, ReimbursementController
 import hashlib
 import json
 
@@ -12,6 +12,7 @@ views = Blueprint('views',__name__)
 @login_required
 def home():
     categories=CategoryController.getAllCategories()
+    
     return render_template('home.html',employee=current_user,categories=categories)
     
 
@@ -24,9 +25,10 @@ def testing_db():
     EmployeeController.getEmployeeById()
     return " "
     
+@login_required    
 @views.route('/reimbursement',methods=['GET','POST'])
 def handleReimbursements():
     if request.method=="GET":
         return "place holder for getting requests"
     if request.method=="POST":
-        return " "
+        return ReimbursementController.addReimbursement(request.form)
