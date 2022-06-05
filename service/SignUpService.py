@@ -1,4 +1,3 @@
-from models.signUp import *
 from models.ORM_models import Employee
 from dao.DB_orm import db
 import re
