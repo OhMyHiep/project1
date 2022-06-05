@@ -1,8 +1,7 @@
-from models.UserDto import *
-from models.signUp import *
 from models.ORM_models import Employee
 from dao.DB_orm import db
 import re
+import hashlib
 
 def isValidRegistration(formData):
     if(len(formData)==0):
@@ -18,13 +17,13 @@ def isValidRegistration(formData):
 
 
 def signUp(formData):
-    new_employee = Employee(firstName=formData.get("firstName"),lastName=formData.get("lastName"),email=formData.get("email"),username=formData.get("username"),password=formData.get("password"))
+    hash_password=hashlib.sha256(formData.get("password1").encode("utf-8")).hexdigest()
+    new_employee = Employee(firstName=formData.get("firstName"),lastName=formData.get("lastName"),email=formData.get("email"),username=formData.get("username"),password=hash_password)
     db.session.add(new_employee)
     db.session.commit()
     print(f"Employee_id {new_employee.employee_id}")
     return new_employee.employee_id
     
-
 
 def validateUsername(username)->bool:
     if re.findall('^(?=.{6,19}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._ ]+(?<![_.])$',username):

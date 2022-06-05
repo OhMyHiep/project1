@@ -2,10 +2,6 @@
 from service import LoginService
 from flask import render_template
 from flask_login import login_user, current_user
-from models import UserDto 
-
-
-
 
 
 def login(loginData):
@@ -15,7 +11,6 @@ def login(loginData):
     login_user(employee,remember=True)
     return render_template("home.html", employee=current_user)
    
-
 
 
 def loginPage():
