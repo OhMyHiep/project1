@@ -19,21 +19,21 @@ class Employee(db.Model,UserMixin):
     username=db.Column(db.String(50))
     password=db.Column(db.String(255))
     roles= db.relationship('Role',secondary=EmployeRole,backref="employees")
-    requests=db.relationship('Request')
+    reimbursements=db.relationship('Reimbursement')
     __table_args__ = (db.UniqueConstraint('email',"username", name='unique_Email_username'),)
     
     
     def get_id(self):
-           return int(self.employee_id)
+        return int(self.employee_id)
 
 
 class Category(db.Model):
     category_id=db.Column(db.Integer,primary_key=True)
     categoryName=db.Column(db.String(50))
-    requests=db.relationship('Request')
+    requests=db.relationship('Reimbursement')
 
-class Request(db.Model):
-    request_id=db.Column(db.Integer,primary_key=True)
+class Reimbursement(db.Model):
+    reimbursement_id=db.Column(db.Integer,primary_key=True)
     description=db.Column(db.String(50))
     amount=db.Column(db.Integer)
     status=db.Column(db.String(50))

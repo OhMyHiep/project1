@@ -14,7 +14,6 @@ def loginUser(loginData):
 
 
 
-
 def validatePassword(input_password,queried_password)->bool:
     if hashlib.sha256(input_password.encode("utf-8")).hexdigest() == queried_password:
         return True

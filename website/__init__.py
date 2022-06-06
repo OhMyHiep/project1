@@ -22,7 +22,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from models.ORM_models import Employee, Role, Request, EmployeRole, Category
+    from models.ORM_models import Employee, Role, Reimbursement, EmployeRole, Category
 
     engine=db.create_engine(f"postgresql://{params['user']}:{params['password']}@{params['host']}:{params['port']}/{params['name']}",{})
     createDatabase(engine,app)
@@ -34,7 +34,6 @@ def create_app():
     @login_manager.user_loader
     def user_loader(id):
         return Employee.query.filter_by(employee_id=id).first()
-
 
 
     return app
