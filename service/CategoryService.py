@@ -1,4 +1,3 @@
-from urllib.request import Request
 from dao.DB_orm import db
 from models.ORM_models import Category
 
