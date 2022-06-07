@@ -1,8 +1,10 @@
-from flask import Blueprint, request, render_template
+from turtle import done
+from flask import Blueprint, jsonify, make_response, request, render_template
 from flask_login import login_required, current_user
 from controller import EmployeeController, CategoryController, ReimbursementController
 import hashlib
-import json
+import json 
+from sqlalchemy.ext.serializer import loads, dumps
 
 
 views = Blueprint('views',__name__)
@@ -30,12 +32,18 @@ def handleReimbursements():
     if request.method=="GET":
         allRequests=ReimbursementController.getAllReimbursements(current_user.employee_id)
         print(allRequests)
-        return "place holder for getting requests"
+        return allRequests
     if request.method=="POST":
         return ReimbursementController.addReimbursement(request.form)
     if request.method=="DELETE":
         #yet to implement get id from webpage of selected
         #reimbursement request
         #it will return a status string to show on a alert box
-        return ReimbursementController.deleteReimbursement(remb_id)
+        #return ReimbursementController.cancelReimbursement(9)
+        #return ReimbursementController.deleteReimbursement(remb_id)
+        
+        data=ReimbursementController.getReimbursementsByStatus("Cancelled")
+        for i in data:
+            print(f"Caneled data {i.reimbursement_id} {i.category_id}")
+        return "done"
         
