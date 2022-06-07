@@ -1,4 +1,3 @@
-from crypt import methods
 from flask import Blueprint, request, render_template
 from flask_login import login_required, current_user
 from controller import EmployeeController, CategoryController, ReimbursementController
@@ -22,13 +21,21 @@ def testing_db():
     password="password"
     print(hashlib.sha256(password.encode("utf-8")).hexdigest())
 
-    EmployeeController.getEmployeeById()
+    EmployeeController.getEmployeeById(current_user.employee_id)
     return " "
     
 @login_required    
-@views.route('/reimbursement',methods=['GET','POST'])
+@views.route('/reimbursement',methods=['GET','POST','DELETE'])
 def handleReimbursements():
     if request.method=="GET":
+        allRequests=ReimbursementController.getAllReimbursements(current_user.employee_id)
+        print(allRequests)
         return "place holder for getting requests"
     if request.method=="POST":
         return ReimbursementController.addReimbursement(request.form)
+    if request.method=="DELETE":
+        #yet to implement get id from webpage of selected
+        #reimbursement request
+        #it will return a status string to show on a alert box
+        return ReimbursementController.deleteReimbursement(remb_id)
+        

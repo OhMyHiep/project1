@@ -4,9 +4,7 @@
 
 <h1>Home Page</h1>
 <h3 class="text-center">Submit Reimbursement Requests</h3>
-
-<!-- {{categories[0].category_id}} -->
-<form action="/reimbursement" method="POST">
+<!-- <form action="/reimbursement" method="POST">
   <div class ="container align-items-center list-group list-group-flush" >
       <span class="list-group-item" id="request"> 
         <select id="inputGroupSelect01" name="category_id">
@@ -23,7 +21,20 @@
         </span>
         
       </span>
+      
+           
   </div>
-</form>
 
+</form> -->
+<p>employee details {{employee.firstName}}</p>
+<a href="/reimbursement" method="GET">
+  <div>
+    <button type="ViewAll"class="btn btn-outline-success">View Previous Requests</button>
+  </div>
+</a>
+<a href="/reimbursement" method="DELETE">
+    <div>
+      <button type="DeleteRequest"class="btn btn-outline-success">Delete Requests</button>
+    </div>
+</a>
 {% endblock %}

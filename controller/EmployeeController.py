@@ -2,8 +2,8 @@
 from service import EmployeeService
 
 
-def getEmployeeById():
-    employee=EmployeeService.getEmployeeById(1)
+def getEmployeeById(emp_id):
+    employee=EmployeeService.getEmployeeById(emp_id)
     print("\nEmployee: ",employee,"\n")
     return employee
 
