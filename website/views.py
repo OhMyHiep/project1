@@ -1,9 +1,7 @@
-from crypt import methods
-from flask import Blueprint, request, render_template
+
+from flask import Blueprint, jsonify, request, render_template
 from flask_login import login_required, current_user
 from controller import EmployeeController, CategoryController, ReimbursementController
-import hashlib
-import json
 
 
 views = Blueprint('views',__name__)
@@ -19,11 +17,8 @@ def home():
 @views.route('/sample-test')
 def testing_db():
     # EmployeeController.addEmployee()
-    password="password"
-    print(hashlib.sha256(password.encode("utf-8")).hexdigest())
 
-    EmployeeController.getEmployeeById()
-    return " "
+    return jsonify(EmployeeController.getEmployeeById())
     
     
 @login_required    
@@ -33,3 +28,4 @@ def handleReimbursements():
         return "place holder for getting requests"
     if request.method=="POST":
         return ReimbursementController.addReimbursement(request.form)
+
