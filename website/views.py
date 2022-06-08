@@ -1,5 +1,4 @@
 from flask import Blueprint, jsonify, request, render_template
-from flask import Blueprint, request, render_template
 from flask_login import login_required, current_user
 from controller import EmployeeController, CategoryController, ReimbursementController
 
@@ -17,9 +16,8 @@ def home():
 @views.route('/sample-test')
 def testing_db():
     # EmployeeController.addEmployee()
+    return jsonify(EmployeeController.getEmployeeById())
 
-    EmployeeController.getEmployeeById(current_user.employee_id)
-    return " "
     
 @login_required    
 @views.route('/reimbursement',methods=['GET','POST','DELETE'])
@@ -37,5 +35,5 @@ def handleReimbursements():
         #return ReimbursementController.deleteReimbursement(remb_id)
         return jsonify(ReimbursementController.getReimbursementsByStatus("Cancelled"))
 
-        
+
 
