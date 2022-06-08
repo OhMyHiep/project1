@@ -1,6 +1,7 @@
 from service import ReimbursementService
 from flask_login import current_user
-from flask import url_for, redirect
+from flask import render_template, url_for, redirect
+from controller import CategoryController
 
 def addReimbursement(data):
     reimbursement=ReimbursementService.addReimbursement(data)
@@ -32,4 +33,10 @@ def rejectReimbursement(reimbursement_id):
     return ReimbursementService.rejectReimbursement(reimbursement_id)
 
 
+<<<<<<< HEAD
 >>>>>>> 21d9441 (minor changes)
+=======
+def getReimbursementView():
+    categories=CategoryController.getAllCategories()
+    return render_template('requestReimbursement.html',categories=categories,employee=current_user)
+>>>>>>> 2596692 (create separate page to submit request, add button to got to submit page)

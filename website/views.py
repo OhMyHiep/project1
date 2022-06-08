@@ -37,3 +37,8 @@ def handleReimbursements():
 
 
 
+@login_required
+@views.login.route('reimbursement/cancel')
+def rejectReimbursement():
+    reimbursement_id=request.args.get("reimbursement_id")
+    ReimbursementController.rejectReimbursement(reimbursement_id)
