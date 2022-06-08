@@ -10,6 +10,7 @@ def addReimbursement(data):
     return reimbursement if reimbursement else None
 
 
+<<<<<<< HEAD
 def viewRequestByEmployeeId(id):
     requests=Reimbursement.query.filter_by(employee_id=id).all()
     if requests is None:
@@ -44,3 +45,21 @@ def viewRequestByStatus(status):
     if requests is None:
         return "No Previous Request To Show"
     return requests
+=======
+def acceptReimbursement(reimbursement_id):
+    reimbursement=Reimbursement.Query.filter_by(reimbursement_id=reimbursement_id).first()
+    reimbursement.status="Accepted"
+    db.session.refresh(reimbursement)
+    return reimbursement
+
+
+def rejectReimbursement(reimbursement_id):
+    reimbursement=Reimbursement.Query.filter_by(reimbursement_id=reimbursement_id).first()
+    reimbursement.status="Accepted"
+    db.session.refresh(reimbursement)
+    return reimbursement
+
+
+
+    
+>>>>>>> 21d9441 (minor changes)
