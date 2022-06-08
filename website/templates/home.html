@@ -2,10 +2,9 @@
 {% block title %} Home {% endblock %}
 {% block content %}
 
+<body>
 <h1>Home Page</h1>
 <h3 class="text-center">Submit Reimbursement Requests</h3>
-
-<!-- {{categories[0].category_id}} -->
 <form action="/reimbursement" method="POST">
   <div class ="container align-items-center list-group list-group-flush" >
       <span class="list-group-item" id="request"> 
@@ -23,7 +22,28 @@
         </span>
         
       </span>
+      
+           
   </div>
-</form>
 
+</form>
+<p>employee details {{employee.firstName}}</p>
+<span>
+  <script="static/index.js"></script>
+
+  <div id="ViewAllContainer">
+    <a href="/reimbursement" method="GET">
+    <button type="ViewAll" id="ViewAll"class="btn btn-outline-success">View Previous Requests</button>
+  </div>
+</a>
+</span>
+
+<br>
+
+    <div id = "DeleteRequestContainer">
+      <a href="/reimbursement" method="DELETE"></a>
+      <button type="DeleteRequest" id="DeleteRequest"class="btn btn-outline-success">Delete Requests</button>
+    </div>
+</a>
+</body>
 {% endblock %}
