@@ -10,7 +10,6 @@ def addReimbursement(data):
     return reimbursement if reimbursement else None
 
 
-<<<<<<< HEAD
 def viewRequestByEmployeeId(id):
     requests=Reimbursement.query.filter_by(employee_id=id).all()
     if requests is None:
@@ -40,26 +39,45 @@ def cancelRequestByReimbursementId(id):
     else:
         return "No Data To Cancel"
 
-def viewRequestByStatus(status):
-    requests=Reimbursement.query.filter_by(status=status).all()
-    if requests is None:
-        return "No Previous Request To Show"
+
+def viewRequestByStatus(requestData):
+    # print('status' in requestData)
+    if 'status' in requestData:
+        status=requestData['status']
+        requests=Reimbursement.query.filter_by(status=status).all()
+        # print(requests)
+        if requests is None:
+            return "No Previous Request To Show"
+        return requests
+
+
+def alterReimbursement(requestData):
+    reimbursement_id=requestData['reimbursement_id']
+    comments=requestData['comments']
+    status=requestData['status']
+    reimbursement=Reimbursement.query.filter_by(reimbursement_id=reimbursement_id).first()
+    if reimbursement and reimbursement.employee_id!=current_user.employee_id and isManager():
+        reimbursement.status=status
+        reimbursement.comments=comments
+        db.session.commit()
+        db.session.refresh(reimbursement)
+        return reimbursement
+    return {"status":"404 Not Found"}
+
+
+def isManager():
+    for role in current_user.roles:
+        # print(f"\n{role.roleTitle} \n")
+        if role.roleTitle=='manager':
+            return True
+    return False
+
+
+def managerViewRequestByStatus(requestData):
+    requests=viewRequestByStatus(requestData)
+    if type(requests)!=str:
+        reviewRequest=[r for r in requests if r.employee_id!=current_user.employee_id]
+        return reviewRequest
     return requests
-=======
-def acceptReimbursement(reimbursement_id):
-    reimbursement=Reimbursement.Query.filter_by(reimbursement_id=reimbursement_id).first()
-    reimbursement.status="Accepted"
-    db.session.refresh(reimbursement)
-    return reimbursement
-
-
-def rejectReimbursement(reimbursement_id):
-    reimbursement=Reimbursement.Query.filter_by(reimbursement_id=reimbursement_id).first()
-    reimbursement.status="Accepted"
-    db.session.refresh(reimbursement)
-    return reimbursement
-
-
 
     
->>>>>>> 21d9441 (minor changes)

@@ -1,3 +1,4 @@
+from models.ORM_models import Employee, Reimbursement
 from service import ReimbursementService
 from flask_login import current_user
 from flask import render_template, url_for, redirect
@@ -7,7 +8,6 @@ def addReimbursement(data):
     reimbursement=ReimbursementService.addReimbursement(data)
     return redirect(url_for('views.home')) if reimbursement else "failed add"
 
-<<<<<<< HEAD
 def getAllReimbursements(emp_id):
     allRequests=ReimbursementService.viewRequestByEmployeeId(emp_id)
     return allRequests
@@ -20,23 +20,20 @@ def cancelReimbursement(remb_id):
     status=ReimbursementService.cancelRequestByReimbursementId(remb_id)
     return status
 
-def getReimbursementsByStatus(status):
-    statusRequests=ReimbursementService.viewRequestByStatus(status)
+def getReimbursementsByStatus(requestData):
+    statusRequests=ReimbursementService.viewRequestByStatus(requestData)
     return statusRequests
-=======
-
-def acceptReimbursement(reimbursement_id):
-    return ReimbursementService.acceptReimbursement(reimbursement_id)
-    
-
-def rejectReimbursement(reimbursement_id):
-    return ReimbursementService.rejectReimbursement(reimbursement_id)
 
 
-<<<<<<< HEAD
->>>>>>> 21d9441 (minor changes)
-=======
+def alterReimbursement(requestData):
+    return ReimbursementService.alterReimbursement(requestData)
+
+
 def getReimbursementView():
     categories=CategoryController.getAllCategories()
     return render_template('requestReimbursement.html',categories=categories,employee=current_user)
->>>>>>> 2596692 (create separate page to submit request, add button to got to submit page)
+
+
+def getManagerReimbursementView():
+    reimbursements=ReimbursementService.managerViewRequestByStatus({'status':'pending'})
+    return render_template('reviewRequest.html',reimbursements=reimbursements,employee=current_user)

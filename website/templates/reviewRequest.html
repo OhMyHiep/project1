@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %} Review Requests {% endblock %}
+{% block content %}
+
+{% for r in reimbursements %}
+    <div id="reimbursement{{r.reimbursement_id}}">
+        <span>{{r.description}} </span>
+        <span>${{r.amount}}</span>
+        <input id="employee_id" type="hidden" value="{{r.employee_id}}">
+        <span><input id="comments" type="text" placeholder="comments"></span>
+        <span><button class="btn btn-outline-success" value="Accepted" onclick="alterReimbursement('reimbursement{{r.reimbursement_id}}',this.value)">Accept</button></span>
+        <span><button class="btn btn-outline-danger" value="Rejected" onclick="alterReimbursement('reimbursement{{r.reimbursement_id}}',this.value)">Reject</button></span>
+    </div>
+{% endfor %}
+
+
+{% endblock %}
+
