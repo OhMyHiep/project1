@@ -7,11 +7,5 @@ def getEmployeeById(id):
     return employee
 
 
-def addEmployee():
-    employee= Employee(firstName='firstName',lastName='lastName',email='email@this.com',username='username',password='password')
-    db.session.add(employee)
-    db.session.commit()
-    db.session.refresh(employee)
-    return employee
 
     
