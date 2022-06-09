@@ -1,6 +1,6 @@
 from dao.DB_orm import db
 from flask_login import current_user
-from models.ORM_models import Reimbursement
+from models.ORM_models import Reimbursement,Category
 
 def addReimbursement(data):
     reimbursement=Reimbursement(description=data.get('description'),amount=data.get('amount'),status='pending',employee_id=current_user.employee_id,category_id=data.get('category_id'))
@@ -12,6 +12,8 @@ def addReimbursement(data):
 
 def viewRequestByEmployeeId(id):
     requests=Reimbursement.query.filter_by(employee_id=id).all()
+    # requests=db.session.query(Reimbursement,Category).filter_by(employee_id=id).join(Category, Reimbursement.category_id == Category.category_id)
+    # req_data=requests.all()
     if requests is None:
         return "No Previous Request To Show"
     return requests
