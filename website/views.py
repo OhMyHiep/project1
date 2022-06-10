@@ -2,14 +2,18 @@ from flask import Blueprint, jsonify, request, render_template
 from flask_login import login_required, current_user
 from controller import EmployeeController, CategoryController, ReimbursementController
 import json
+from models.ORM_models import Reimbursement
+
 
 views = Blueprint('views',__name__)
 
 @views.route('/', methods=['GET','POST'])
 @login_required
 def home():
-    
-    return render_template('home.html',employee=current_user)
+    categories=CategoryController.getAllCategories()
+    allRequests=ReimbursementController.getAllReimbursements(current_user.employee_id)
+    jsonify(allRequests)
+    return render_template('home.html',employee=current_user,categories=categories,allRequests=allRequests)
     
 
 @views.route('/sample-test',methods=['GET','POST'])
@@ -35,6 +39,7 @@ def handleReimbursements():
         #reimbursement request
         #it will return a status string to show on a alert box
         #return ReimbursementController.deleteReimbursement(remb_id)
+        #return ReimbursementController.cancelReimbursement(remb_id)
         return jsonify(ReimbursementController.getReimbursementsByStatus("Cancelled"))
 
 

@@ -1,6 +1,7 @@
+import re
 from dao.DB_orm import db
 from flask_login import current_user
-from models.ORM_models import Reimbursement
+from models.ORM_models import Reimbursement,Category
 
 def addReimbursement(data):
     reimbursement=Reimbursement(description=data.get('description'),amount=data.get('amount'),status='pending',employee_id=current_user.employee_id,category_id=data.get('category_id'))
@@ -12,6 +13,8 @@ def addReimbursement(data):
 
 def viewRequestByEmployeeId(id):
     requests=Reimbursement.query.filter_by(employee_id=id).all()
+    # requests=db.session.query(Reimbursement,Category).filter_by(employee_id=id).join(Category, Reimbursement.category_id == Category.category_id)
+    # req_data=requests.all()
     if requests is None:
         return "No Previous Request To Show"
     return requests
@@ -56,7 +59,7 @@ def alterReimbursement(requestData):
     comments=requestData['comments']
     status=requestData['status']
     reimbursement=Reimbursement.query.filter_by(reimbursement_id=reimbursement_id).first()
-    if reimbursement and reimbursement.employee_id!=current_user.employee_id and isManager():
+    if reimbursement and reimbursement.employee_id!=current_user.employee_id and isManager() and validateComments(comments):
         reimbursement.status=status
         reimbursement.comments=comments
         db.session.commit()
@@ -80,4 +83,38 @@ def managerViewRequestByStatus(requestData):
         return reviewRequest
     return requests
 
-    
+
+# validation functions
+def isValidReimbursement(data):
+    # print(f"data exists: {dataExistForAdding(data)}")
+    return dataExistForAdding(data) and validateDescription(data.get('description')) and validateAmount(amount=data.get('amount'))
+
+
+def validateDescription(description):
+    if re.findall('[A-Za-z0-9]',description):
+        description=description.strip()
+        return len(description)>1 and len(description)<=50 
+    return False
+
+
+def validateAmount(amount):
+    if int(amount)>0 and int(amount)<=1000:
+        return True
+    return False
+
+
+def validateComments(comments):
+    if re.findall('[a-zA-Z0-9$@.#,+!%&-]',comments):
+        comments=comments.strip()
+        return len(comments)>1 and len(comments)<=50 
+    print("Invalid Comments To Save in Database")
+    return False
+
+
+def dataExistForAdding(requestData):
+     return requestData and 'description' in requestData and 'amount' in requestData and 'category_id' in requestData
+        
+
+def dataExistToAlterRequest(requestData):
+    return requestData and 'reimbursement_id' in requestData and 'comments' in requestData and 'status' in requestData
+
