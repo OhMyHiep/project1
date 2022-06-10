@@ -2,40 +2,49 @@
 {% block title %} Home {% endblock %}
 {% block content %}
 <head>
-
+  <style>
+    .left{float:left; width:33%; justify-content: center;}
+  </style>
 </head>
 
 <body>
 <h1>Home Page</h1>
 <h3 class="text-center">Submit Reimbursement Requests</h3>
 
-<<<<<<< Updated upstream
 <p>employee details {{employee.firstName}}</p>
-=======
+
 </form>
 
 <div class="box" id="viewAllRequests">
   <p>dfdfdjfdj</p>
 </div>
-<p>employee details {{employee.firstName}} {{employee.lastName}}</p>
->>>>>>> Stashed changes
+<p>employee details {{employee.firstName}} {{employee.lastName}} </p>
 <span>
   <script="static/index.js"></script>
 
-  <div id="ViewAllContainer">
+  <div id = "AddRequestContainer" class="left">
+    <img src="static/add-file.png" alt="Add request" width="100" height="100" ><br>
+    <a href="/reimbursement-page"></a>
+    <button type="DeleteRequest" id="DeleteRequest"class="btn btn-outline-success">Add New Reimbursement</button>
+  </div>
+
+
+  <div id="ViewAllContainer" class="left">
+   
     <!-- <a href="/reimbursement" method="GET"> -->
-    <button type="ViewAll" id="ViewAll"class="btn btn-outline-success">View Previous Requests</button>
+    <button type="ViewAll" id="ViewAll"class="btn btn-outline-success">View Previous Reimbursements</button>
   </div>
 </span>
 
-<br>
 
-    <div id = "DeleteRequestContainer">
+
+    <div id = "DeleteRequestContainer" class="left">
+      <img src="static/delete-file.png" alt="Add request" width="100" height="100" ><br>
       <a href="/reimbursement" method="DELETE"></a>
-      <button type="DeleteRequest" id="DeleteRequest"class="btn btn-outline-success">Delete Requests</button>
+      <button type="DeleteRequest" id="DeleteRequest"class="btn btn-outline-success">Delete Reimbursement Requests</button>
     </div>
 
-
+   
 
 </body>
 {% endblock %}

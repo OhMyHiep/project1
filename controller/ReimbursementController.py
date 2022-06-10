@@ -5,9 +5,12 @@ from flask import render_template, url_for, redirect
 from controller import CategoryController
 
 def addReimbursement(data):
-    reimbursement=ReimbursementService.addReimbursement(data)
-    return redirect(url_for('views.home')) if reimbursement else "failed add"
-
+    if(ReimbursementService.isValidReimbursement(data)):
+        reimbursement=ReimbursementService.addReimbursement(data)
+        return redirect(url_for('views.home')) if reimbursement else "failed add"
+    return "Wrong input for Reimbursement Request"
+    
+    
 def getAllReimbursements(emp_id):
     allRequests=ReimbursementService.viewRequestByEmployeeId(emp_id)
     return allRequests

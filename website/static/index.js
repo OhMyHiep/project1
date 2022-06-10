@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 async function alterReimbursement(request_id,status){
     let comments=document.getElementById(request_id).querySelector('#comments').value
     let reimbursement_id=request_id.replace("reimbursement","")
@@ -13,9 +12,8 @@ async function alterReimbursement(request_id,status){
         return _res.json()
         // console.log(_res)
     }).then (data => console.log(data))
+}
     
-    
-=======
 let body = document.querySelector("body")
 
 let ViewAllContainer= document.querySelector("#ViewAllContainer")
@@ -64,5 +62,4 @@ function generateTable(tableData)
     `</table>`
 
         tableholder.innerHTML = newTable;
->>>>>>> Stashed changes
 }

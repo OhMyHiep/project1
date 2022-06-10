@@ -1,3 +1,4 @@
+import re
 from dao.DB_orm import db
 from flask_login import current_user
 from models.ORM_models import Reimbursement,Category
@@ -58,7 +59,7 @@ def alterReimbursement(requestData):
     comments=requestData['comments']
     status=requestData['status']
     reimbursement=Reimbursement.query.filter_by(reimbursement_id=reimbursement_id).first()
-    if reimbursement and reimbursement.employee_id!=current_user.employee_id and isManager():
+    if reimbursement and reimbursement.employee_id!=current_user.employee_id and isManager() and validateComments(comments):
         reimbursement.status=status
         reimbursement.comments=comments
         db.session.commit()
@@ -82,4 +83,28 @@ def managerViewRequestByStatus(requestData):
         return reviewRequest
     return requests
 
-    
+
+# validation functions
+def isValidReimbursement(data):
+    if(len(data)==0):
+        print("No Reimbursement Data To Validate")
+        return False
+    return validateDescription(data.get('description')) and validateAmount(amount=data.get('amount'))
+
+def validateDescription(description):
+    if re.findall('[A-Za-z0-9]',description):
+        description=description.strip()
+        return len(description)>1 and len(description)<=50 
+    return False
+
+def validateAmount(amount):
+    if int(amount)>0 and int(amount)<=1000:
+        return True
+    return False
+
+def validateComments(comments):
+    if re.findall('[a-zA-Z0-9$@.#,+!%&-]',comments):
+        comments=comments.strip()
+        return len(comments)>1 and len(comments)<=50 
+    print("Invalid Comments To Save in Database")
+    return False
