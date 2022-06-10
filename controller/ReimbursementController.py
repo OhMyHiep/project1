@@ -29,8 +29,9 @@ def getReimbursementsByStatus(requestData):
 
 
 def alterReimbursement(requestData):
-    return ReimbursementService.alterReimbursement(requestData)
-
+    if ReimbursementService.dataExistToAlterRequest(requestData):
+        return ReimbursementService.alterReimbursement(requestData)
+    return "bad request 400"
 
 def getReimbursementView():
     categories=CategoryController.getAllCategories()

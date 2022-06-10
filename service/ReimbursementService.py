@@ -86,10 +86,9 @@ def managerViewRequestByStatus(requestData):
 
 # validation functions
 def isValidReimbursement(data):
-    if(len(data)==0):
-        print("No Reimbursement Data To Validate")
-        return False
-    return validateDescription(data.get('description')) and validateAmount(amount=data.get('amount'))
+    # print(f"data exists: {dataExistForAdding(data)}")
+    return dataExistForAdding(data) and validateDescription(data.get('description')) and validateAmount(amount=data.get('amount'))
+
 
 def validateDescription(description):
     if re.findall('[A-Za-z0-9]',description):
@@ -97,10 +96,12 @@ def validateDescription(description):
         return len(description)>1 and len(description)<=50 
     return False
 
+
 def validateAmount(amount):
     if int(amount)>0 and int(amount)<=1000:
         return True
     return False
+
 
 def validateComments(comments):
     if re.findall('[a-zA-Z0-9$@.#,+!%&-]',comments):
@@ -108,3 +109,12 @@ def validateComments(comments):
         return len(comments)>1 and len(comments)<=50 
     print("Invalid Comments To Save in Database")
     return False
+
+
+def dataExistForAdding(requestData):
+     return requestData and 'description' in requestData and 'amount' in requestData and 'category_id' in requestData
+        
+
+def dataExistToAlterRequest(requestData):
+    return requestData and 'reimbursement_id' in requestData and 'comments' in requestData and 'status' in requestData
+
