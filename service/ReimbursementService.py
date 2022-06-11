@@ -1,7 +1,7 @@
 import re
 from dao.DB_orm import db
 from flask_login import current_user
-from models.ORM_models import Reimbursement,Category
+from models.ORM_models import Reimbursement
 
 def addReimbursement(data):
     reimbursement=Reimbursement(description=data.get('description'),amount=data.get('amount'),status='pending',employee_id=current_user.employee_id,category_id=data.get('category_id'))
@@ -91,20 +91,21 @@ def isValidReimbursement(data):
 
 
 def validateDescription(description):
-    if re.findall('[A-Za-z0-9]',description):
+    if re.findall('(\d*[a-zA-Z]+\d*)+',description):
         description=description.strip()
         return len(description)>1 and len(description)<=50 
     return False
 
 
 def validateAmount(amount):
-    if int(amount)>0 and int(amount)<=1000:
-        return True
+    if(isinstance(amount,int) or isinstance(amount,float)):
+        if int(amount)>0 and int(amount)<=1000:
+            return True
     return False
 
 
 def validateComments(comments):
-    if re.findall('[a-zA-Z0-9$@.#,+!%&-]',comments):
+    if re.findall('(\d*[a-zA-Z]+\d*)+',comments):
         comments=comments.strip()
         return len(comments)>1 and len(comments)<=50 
     print("Invalid Comments To Save in Database")
