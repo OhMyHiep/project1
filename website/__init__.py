@@ -3,7 +3,6 @@ from flask_login import LoginManager
 from website import config_psql
 from sqlalchemy_utils import database_exists, create_database
 from dao.DB_orm import db
-from models.ORM_models import Employee
 
 
 params=config_psql.config()

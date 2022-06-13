@@ -56,7 +56,7 @@ function generateTable(tableData)
             <td>${data.amount}</td>
             <td>${data.comments}</td>
             <td>${data.category_id}</td>
-            <td>${data.status}</td>
+            <td style="color: red">${data.status}</td>
         </tr>`
         }
     `</table>`
