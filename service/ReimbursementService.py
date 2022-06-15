@@ -1,9 +1,12 @@
 import re
+
+from sqlalchemy import true
 from dao.DB_orm import db
 from flask_login import current_user
 from models.ORM_models import Reimbursement
 
 def addReimbursement(data):
+    print(f"description={data.get('description')},amount={data.get('amount')},status='pending',employee_id={current_user.employee_id},category_id={data.get('category_id')}") 
     reimbursement=Reimbursement(description=data.get('description'),amount=data.get('amount'),status='pending',employee_id=current_user.employee_id,category_id=data.get('category_id'))
     db.session.add(reimbursement)
     db.session.commit()
@@ -33,12 +36,16 @@ def deleteRequestByReimbursementId(id):
 def cancelRequestByReimbursementId(id):
     requests=Reimbursement.query.filter_by(reimbursement_id=id).first()
     if requests is not None:
-        if requests.status=="Pending":
+        if requests.status=="pending":
             Reimbursement.query.filter_by(reimbursement_id=id).update({'status': "Cancelled"})
             db.session.commit()
             return f"Request number {id} Cancelled Successfully"
         if requests.status=="Cancelled":
             return "Record is alrady Cancelled"
+        if requests.status=="Accepted":
+            return "Can Not Cancel Accepted Request"
+        else:
+            return f"Can Not Cancel {requests.status} Request"
     else:
         return "No Data To Cancel"
 
@@ -98,7 +105,7 @@ def validateDescription(description):
 
 
 def validateAmount(amount):
-    if(isinstance(amount,int) or isinstance(amount,float)):
+    if(amount.isnumeric()):
         if int(amount)>0 and int(amount)<=1000:
             return True
     return False
@@ -118,4 +125,3 @@ def dataExistForAdding(requestData):
 
 def dataExistToAlterRequest(requestData):
     return requestData and 'reimbursement_id' in requestData and 'comments' in requestData and 'status' in requestData
-
