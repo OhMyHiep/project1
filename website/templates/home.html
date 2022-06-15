@@ -3,16 +3,16 @@
 {% block content %}
 <head>
   <style>
-    .left{float:left; width:33%; justify-content: center;}
+    .left{float:left; width:33%; justify-content: center;margin-left: auto; margin-right: auto;}
     .box {
-    box-shadow:
+    /* box-shadow:
     0 2.8px 2.2px rgba(0, 0, 0, 0.034),
     0 6.7px 5.3px rgba(0, 0, 0, 0.048),
     0 12.5px 10px rgba(0, 0, 0, 0.06),
     0 22.3px 17.9px rgba(0, 0, 0, 0.072),
     0 41.8px 33.4px rgba(0, 0, 0, 0.086),
     0 100px 80px rgba(0, 0, 0, 0.12)
-  ;
+  ; */
   
     
     
@@ -21,48 +21,47 @@
     margin: 100px auto;
     background: white;
     border-radius: 5px;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
   </style>
 </head>
 
 <body>
 <h1>Home Page</h1>
-<h3 class="text-center">Submit Reimbursement Requests</h3>
+<h3 class="text-center">Welcome {{employee.firstName}} {{employee.lastName}}</h3>
 
-<p>employee details {{employee.firstName}}</p>
 
 </form>
 
-<div class="box" id="viewAllRequests">
-  <p color="red">dfdfdjfdj</p>
-</div>
-<p>employee details {{employee.firstName}} {{employee.lastName}} </p>
+
 <span>
   <script="static/index.js"></script>
 
   <div id = "AddRequestContainer" class="left">
-    <img src="static/add-file.png" alt="Add request" width="100" height="100" ><br>
-    <a href="/reimbursement-page"></a>
-    <button type="DeleteRequest" id="DeleteRequest"class="btn btn-outline-success">Add New Reimbursement</button>
+  <center><img src="static/add-file.png" alt="Add request" width="100" height="100" ><br>
+    <a href="/reimbursement-page">
+    <button type="AddRequest" id="AddRequest"class="btn btn-outline-success">Add New Reimbursement</button></a></center>
   </div>
 
 
   <div id="ViewAllContainer" class="left">
    
-    <!-- <a href="/reimbursement" method="GET"> -->
-    <button type="ViewAll" id="ViewAll"class="btn btn-outline-success">View Previous Reimbursements</button>
+  <center><img src="static/search-file.png" alt="View All request" width="100" height="100" ><br>
+    <button type="ViewAll" id="ViewAllBtn"class="btn btn-outline-success">View Previous Reimbursements</button></center>
   </div>
-</span>
 
 
-
-    <div id = "DeleteRequestContainer" class="left">
-      <img src="static/delete-file.png" alt="Add request" width="100" height="100" ><br>
-      <a href="/reimbursement" method="DELETE"></a>
-      <button type="DeleteRequest" id="DeleteRequest"class="btn btn-outline-success">Delete Reimbursement Requests</button>
+   <div id = "DeleteRequestContainer" class="left">
+      
+    <center><img src="static/delete-file.png" alt="Add request" width="100" height="100" ><br>
+      <button type="DeleteRequest" id="DeleteRequest"class="btn btn-outline-success">Delete Reimbursement Requests</button></center>
     </div>
-
+  </span>
    
-
+  <br>
+  <br><br>
+  <div class="box" id="viewAllRequests">
+  </div>
 </body>
 {% endblock %}

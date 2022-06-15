@@ -1,9 +1,8 @@
+from cgitb import reset
 from flask import Blueprint, jsonify, request, render_template
 from flask_login import login_required, current_user
 from controller import EmployeeController, CategoryController, ReimbursementController
 import json
-from models.ORM_models import Reimbursement
-
 
 views = Blueprint('views',__name__)
 
@@ -33,14 +32,22 @@ def handleReimbursements():
         print(allRequests)
         return jsonify(allRequests)
     if request.method=="POST":
+        #print(f"Post Method{request.form}" )
         return ReimbursementController.addReimbursement(request.form)
     if request.method=="DELETE":
-        #yet to implement get id from webpage of selected
-        #reimbursement request
-        #it will return a status string to show on a alert box
-        #return ReimbursementController.deleteReimbursement(remb_id)
-        #return ReimbursementController.cancelReimbursement(remb_id)
-        return jsonify(ReimbursementController.getReimbursementsByStatus("Cancelled"))
+        #jsonify(ReimbursementController.getReimbursementsByStatus("Cancelled"))
+        data=json.loads(request.data)
+        req_id=data['req_id']
+        #print(req_id)
+        return jsonify(ReimbursementController.cancelReimbursement(int(req_id)))
+
+@views.route('/delreimbursement',methods=['DELETE'])
+@login_required
+def deleteReimbursement():
+    data=json.loads(request.data)
+    req_id=data['req_id']
+    print(req_id)
+    return jsonify(ReimbursementController.deleteReimbursement(int(req_id)))
 
 
 @views.route('/reimbursement/alter',methods=['POST'])
