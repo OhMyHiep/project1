@@ -3,22 +3,22 @@ Feature: Testing accepting or rejecting a Reimbursement Request
     Test the functions of inputs on this page
 
         Scenario Outline: input request with comments and click accept or reject button
-            Given I'm on requestReimbursement.html and request exists to review
-            When I input <comments> 
-            When I click the accept or reject button
-            Then the page will give a response
+            Given I'm on reviewRequest.html and request exists to review
+            When I input <comments>
+            When I click <button> to submit
+            Then the page will remove it if comments are valid
 
             Examples: Rejecting Reimbursement requests with proper input
-            |   comments    |
-            |   gibberish   |
-            |   reject      |
-            |   Testing     |
+            |   comments    |   button      |
+            |   gibberish   |   Rejected    |
+            
 
-            Examples: Accepting Reimbursement request
-            |   comments    |
-            |   accept      |
-            |   ok          |
+            Examples: Accepting reimbursement with proper inputs
+            |   comments    |   button      |
+            |   second      |   Accepted    |
 
-            Examples: blank comments
-            |   comments    |
-            |               |
+
+            #need different scenarios for alternative path
+            # Examples: blank comments
+            # |   comments    |   button      |
+            # |               |               |

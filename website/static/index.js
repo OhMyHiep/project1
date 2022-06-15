@@ -1,5 +1,6 @@
 async function alterReimbursement(request_id,status){
-    let comments=document.getElementById(request_id).querySelector('#comments').value
+    let request=document.getElementById(request_id)
+    let comments=request.querySelector('#comments').value
     let reimbursement_id=request_id.replace("reimbursement","")
     fetch('/reimbursement/alter',{
         method: 'POST',
@@ -9,6 +10,7 @@ async function alterReimbursement(request_id,status){
             "comments":comments
         })
     }).then((_res)=> {
+        request.remove()
         return _res.json()
         // console.log(_res)
     }).then (data => console.log(data))
