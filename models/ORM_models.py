@@ -37,7 +37,7 @@ class Reimbursement(db.Model):
     description=db.Column(db.String(50))
     amount=db.Column(db.Integer)
     status=db.Column(db.String(50))
-    comments=db.Column(db.String(50))
+    comments=db.Column(db.String(100))
     employee_id=db.Column(db.Integer, db.ForeignKey('employee.employee_id'))
     category_id=db.Column(db.Integer, db.ForeignKey('category.category_id'))
 

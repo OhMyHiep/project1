@@ -114,7 +114,7 @@ def validateAmount(amount):
 def validateComments(comments):
     if re.findall('(\d*[a-zA-Z]+\d*)+',comments):
         comments=comments.strip()
-        return len(comments)>1 and len(comments)<=50 
+        return len(comments)>1 and len(comments)<=100 
     print("Invalid Comments To Save in Database")
     return False
 
