@@ -16,7 +16,7 @@ def test_Description(testName,expected):
     ("    ",False),("",False),("k",False),("$200",False),(125,True),(120.5,True),
     (5565,False),(-367,False),(0,False),(1,True),(1000,True),(1001,False)
 ))
-def test_Amount(testName,expected):
+def test_amount(testName,expected):
     assert(validateAmount(testName)) == expected
 
 @pytest.mark.parametrize("testName,expected",(
