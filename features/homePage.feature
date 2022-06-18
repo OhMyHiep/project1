@@ -13,7 +13,7 @@ Feature: Test User will go to homepage after login
             # |   testing     |   testing     |
 
 
-    Scenario Outline: User Want to add Reimbursement
+    Scenario Outline: User Want to see add Reimbursement Page
         Given the user is on the login page
         When the user input username <username>
         When user input password <password>
@@ -25,7 +25,26 @@ Feature: Test User will go to homepage after login
             |   username    |   password    |
             |   username    |   password    |
 
-    
+
+    Scenario Outline: User Want to Add New Reimbursement
+        Given the user is on the login page
+        When the user input username <username>
+        When user input password <password>
+        When the user click submit button
+        When User click on Add New Reimbursement button
+        When User selects the Reimbursement Type <type>
+        When User enter valid description <description>
+        When User enter valid amount <amount>
+        When User click on submit Reimbursement button
+        Then User moved back to the homepage
+
+        Examples: login
+            |   username    |   password    |   type    |   description                     |   amount  |
+            |   username    |   password    |   travel  |   Travel expense for behave test  |   140     |
+
+        #Examples: new Reimbursement Request
+            
+
 
     Scenario Outline: view Prveious Reimbursement
         

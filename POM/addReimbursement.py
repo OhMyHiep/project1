@@ -1,5 +1,6 @@
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.select import Select
 
 class ReimbursementPage:
 
@@ -12,8 +13,20 @@ class ReimbursementPage:
     def getTitle(self):
         return self.driver.title
 
-    def selectCategory(self):
-        return self.driver.find_element(By.ID,"inputGroupSelect01")
+    def selectCategory(self,type):
+        dropDown = self.driver.find_element(By.XPATH,"//*[@id='inputGroupSelect01']")
+        dropDownMenu = Select(dropDown)
+        return dropDownMenu.select_by_visible_text(type)
+        
 
     def description(self):
-        return self.driver.find_element(By.XPATH,'"//*[@id="request"]/input[1]"')
+        return self.driver.find_element(By.XPATH,"//*[@id='request']/*[@type='text']")
+
+    def amount(self):
+        return self.driver.find_element(By.XPATH,"//*[@id='request']/*[@type='number']")
+
+    def submitBtn(self):
+        return self.driver.find_element(By.XPATH,"//*[@id='request']/span/button")
+
+    def getCurrentPageTitle(self):
+        return self.driver.title
