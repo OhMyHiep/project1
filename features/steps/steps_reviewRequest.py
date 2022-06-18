@@ -22,5 +22,15 @@ def step_impl(context,button):
 
 @then(u'the page will remove it if comments are valid')
 def step_impl(context):
-    context.reviewRequest.driver.refresh()
     assert len(context.reviewRequest.driver.find_elements(By.ID,f'{context.reviewRequest.request_id}'))==0
+
+
+@when(u'I click {button} to submit invalid comments')
+def step_impl(context,button):
+    context.reviewRequest.getButton(button.strip()).click()
+    WebDriverWait(context.driver, 3).until(EC.presence_of_element_located((By.ID,context.reviewRequest.request_id)))
+
+
+@then(u'the page will not remove the reimbursement request')
+def step_impl(context):
+    assert len(context.reviewRequest.driver.find_elements(By.ID,f'{context.reviewRequest.request_id}'))==1

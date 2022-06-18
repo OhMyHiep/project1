@@ -3,7 +3,7 @@ from flask_login import LoginManager
 from website import config_psql
 from sqlalchemy_utils import database_exists, create_database
 from dao.DB_orm import db
-
+from logging import FileHandler, WARNING
 
 params=config_psql.config()
 # print("\n",params['user'],"\n")
@@ -14,6 +14,10 @@ def create_app():
     app.config['SECRET_KEY']='python'
     app.config['SQLALCHEMY_DATABASE_URI']= f"postgresql://{params['user']}:{params['password']}@{params['host']}:{params['port']}/{params['name']}"
     db.init_app(app)
+
+    handler=FileHandler('errorlogs.txt')
+    handler.setLevel(WARNING)
+    app.logger.addHandler(handler)
 
     from .views import views
     from .auth import auth

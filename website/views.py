@@ -17,10 +17,8 @@ def home():
 
 @views.route('/sample-test',methods=['GET','POST'])
 def testing_db():
-    # EmployeeController.addEmployee()
-    requestData=json.loads(request.data)
-    print("\n",type(requestData),"\n")
-    return jsonify({"id":"testing","status":"returning"})
+    1/0
+    return ''
 
     
 

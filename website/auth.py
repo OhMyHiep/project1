@@ -22,4 +22,4 @@ def logout():
 def sign_up():
     return SignUpController.signUp(request.form)
     # return render_template("sign-up.html")
-
+ 
