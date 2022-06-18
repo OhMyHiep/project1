@@ -105,10 +105,14 @@ def validateDescription(description):
 
 
 def validateAmount(amount):
-    if(amount.isnumeric()):
-        if int(amount)>0 and int(amount)<=1000:
+    try:
+        amount=float(amount)
+        if (amount)>0 and (amount)<=1000:
             return True
-    return False
+        return False
+    except ValueError:
+        return False
+    
 
 
 def validateComments(comments):

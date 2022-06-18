@@ -4,16 +4,20 @@ async function alterReimbursement(request_id,status){
     let reimbursement_id=request_id.replace("reimbursement","")
     fetch('/reimbursement/alter',{
         method: 'POST',
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify( {
             "reimbursement_id":reimbursement_id,
             "status":status,
             "comments":comments
         })
     }).then((_res)=> {
-        request.remove()
         return _res.json()
         // console.log(_res)
-    }).then (data => console.log(data))
+    }).then (data => {
+        console.log(data)
+        data.hasOwnProperty('status')? request.remove():void(0)
+        
+    })
 }
     
 let body = document.querySelector("body")

@@ -4,7 +4,7 @@ from POM.Login import Login
 from POM.reviewRequest import ReviewRequest
 from POM.Homepage import HomePage
 from POM.addReimbursement import ReimbursementPage
-import logging
+from POM.NavBar import NavBar
 
 def before_all(context: Context):
     # We need to add a driver to the context
@@ -16,6 +16,7 @@ def before_all(context: Context):
     context.reviewRequest=ReviewRequest(context.driver)
     context.homepage=HomePage(context.driver)
     context.reimbursementPage=ReimbursementPage(context.driver)
+    context.navBar=NavBar(context.driver)
     # We add an implicit wait to work with latency issues
     context.driver.implicitly_wait(1)
 
