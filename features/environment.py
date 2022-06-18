@@ -11,7 +11,6 @@ def before_all(context: Context):
     context.driver = webdriver.Chrome("/Users/Sachin/projects/project1/drivers/chromedriver.exe")
     # context.driver.get("https://www.google.com")
     # We need to add all POMS to the context
-    context.config.setup_logging(filename="debug.log", level=logging.DEBUG, format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
     print(f'\n context driver here: {context.driver}\n')
     context.login=Login(context.driver)
     context.reviewRequest=ReviewRequest(context.driver)

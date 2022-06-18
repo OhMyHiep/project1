@@ -19,7 +19,7 @@ def homepage(context):
 
 @when(u'User click on Add New Reimbursement button') 
 def addNewReimbursement(context):
-   context.homepage.AddRequestBtn().click() 
+    context.homepage.AddRequestBtn().click() 
 
 @then(u'User can see the Reimbursement page')
 def reimbursement(context):
@@ -97,3 +97,28 @@ def updateTable(context):
         assert False
     except NoSuchElementException: 
         assert True
+
+
+@when(u'User selects the Reimbursement Type {type}')
+def selectReqType(context,type):
+    context.reimbursementPage.selectCategory(type)
+
+@when(u'User enter valid description {description}')
+def enterDescription(context,description):
+    context.reimbursementPage.description().send_keys(description)
+
+@when(u'User enter valid amount {amount}')
+def enterAmount(context,amount):
+    context.reimbursementPage.amount().send_keys(amount)
+
+@when(u'User click on submit Reimbursement button')
+def submitBtn(context):
+    context.reimbursementPage.submitBtn().click()
+
+@then(u'User moved back to the homepage')
+def currentPage(context):
+    assert context.reimbursementPage.getCurrentPageTitle() =="Home"
+
+        
+        
+        

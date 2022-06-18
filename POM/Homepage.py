@@ -15,13 +15,13 @@ class HomePage:
         return self.driver.title
 
     def AddRequestBtn(self):
-        return self.driver.find_element(By.ID,"AddRequest")
+        return self.driver.find_element(By.XPATH, "//*[@id='AddRequestBtn']")
 
     def ViewAllBtn(self):
         return self.driver.find_element(By.ID,"ViewAllBtn")
 
     def DeleteRequestBtn(self):
-        return self.driver.find_element(By.ID,"DeleteRequest")
+        return self.driver.find_element(By.ID,"DeleteRequestBtn")
 
     def ViewAllContainer(self):
         return self.driver.find_element(By.XPATH,"//*[@id=\"viewAllRequests\"]/table")
