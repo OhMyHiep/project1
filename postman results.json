@@ -1,0 +1,693 @@
+{
+	"id": "b4a07fb2-746b-4b5d-8d71-22a499a5fe03",
+	"name": "project1",
+	"timestamp": "2022-06-19T19:24:25.007Z",
+	"collection_id": "20155153-38181560-0d90-4926-b326-12b4bb3b0457",
+	"folder_id": 0,
+	"environment_id": "20155153-c586edf3-1104-4897-89b4-48ea88f8287e",
+	"totalPass": 24,
+	"totalFail": 1,
+	"results": [
+		{
+			"id": "1fc2bbe7-e310-412a-a016-d3c2543ee727",
+			"name": "Login Fail",
+			"url": "http://127.0.0.1:5000/login",
+			"time": 129,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Login fail return error message": true
+			},
+			"testPassFailCounts": {
+				"Login fail return error message": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				129
+			],
+			"allTests": [
+				{
+					"Login fail return error message": true
+				}
+			]
+		},
+		{
+			"id": "02976171-f44e-43b5-b7ec-a49f09ed85cd",
+			"name": "Login Success",
+			"url": "http://127.0.0.1:5000/login",
+			"time": 168,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"login, return Home Page": true
+			},
+			"testPassFailCounts": {
+				"login, return Home Page": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				168
+			],
+			"allTests": [
+				{
+					"login, return Home Page": true
+				}
+			]
+		},
+		{
+			"id": "094190de-fe1f-4cf1-be9c-7f00b77bafbf",
+			"name": "Add Reim. to delete",
+			"url": "http://127.0.0.1:5000/reimbursement",
+			"time": 296,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"add valid Reimbursement, returns Reimbursement": true
+			},
+			"testPassFailCounts": {
+				"add valid Reimbursement, returns Reimbursement": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				296
+			],
+			"allTests": [
+				{
+					"add valid Reimbursement, returns Reimbursement": true
+				}
+			]
+		},
+		{
+			"id": "851f1a43-f132-49c7-a37c-a66b36ceb2eb",
+			"name": "Cancel Reimbursement",
+			"url": "http://127.0.0.1:5000/reimbursement",
+			"time": 209,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"cancel reimbursement,return message": true
+			},
+			"testPassFailCounts": {
+				"cancel reimbursement,return message": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				209
+			],
+			"allTests": [
+				{
+					"cancel reimbursement,return message": true
+				}
+			]
+		},
+		{
+			"id": "668634b1-a718-4b89-b95e-dcad30e59360",
+			"name": "Cancel already canceled reim.",
+			"url": "http://127.0.0.1:5000/reimbursement",
+			"time": 178,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"cancel already cancled reimbursement": true
+			},
+			"testPassFailCounts": {
+				"cancel already cancled reimbursement": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				178
+			],
+			"allTests": [
+				{
+					"cancel already cancled reimbursement": true
+				}
+			]
+		},
+		{
+			"id": "bc86501f-50d3-43d3-8961-ecaba858ff30",
+			"name": "Delete Reimbursement",
+			"url": "http://127.0.0.1:5000/delreimbursement",
+			"time": 205,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Delete reimbursement": true
+			},
+			"testPassFailCounts": {
+				"Delete reimbursement": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				205
+			],
+			"allTests": [
+				{
+					"Delete reimbursement": true
+				}
+			]
+		},
+		{
+			"id": "f2ada937-716c-4328-b35e-152bf3b8a7d4",
+			"name": "Delete Deleted Reim.",
+			"url": "http://127.0.0.1:5000/delreimbursement",
+			"time": 166,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Delete already Deleted reimbursement": true
+			},
+			"testPassFailCounts": {
+				"Delete already Deleted reimbursement": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				166
+			],
+			"allTests": [
+				{
+					"Delete already Deleted reimbursement": true
+				}
+			]
+		},
+		{
+			"id": "431d90b5-9fe2-4bc1-af58-06f75bfa194f",
+			"name": "Accept Reimbursement Success",
+			"url": "http://127.0.0.1:5000/reimbursement/alter",
+			"time": 408,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"reimbursement status is 'Accepted' ": true,
+				"Body matches string": true,
+				"Schema is valid": true
+			},
+			"testPassFailCounts": {
+				"reimbursement status is 'Accepted' ": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Schema is valid": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				408
+			],
+			"allTests": [
+				{
+					"reimbursement status is 'Accepted' ": true,
+					"Body matches string": true,
+					"Schema is valid": true
+				}
+			]
+		},
+		{
+			"id": "e233d171-dc0b-40c3-928b-9080f74ff0f4",
+			"name": "Accept Reimbursement Error",
+			"url": "http://127.0.0.1:5000/reimbursement/alter",
+			"time": 91,
+			"responseCode": {
+				"code": 500,
+				"name": "INTERNAL SERVER ERROR"
+			},
+			"tests": {
+				"sending incorrect json syntax": false
+			},
+			"testPassFailCounts": {
+				"sending incorrect json syntax": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				91
+			],
+			"allTests": [
+				{
+					"sending incorrect json syntax": false
+				}
+			]
+		},
+		{
+			"id": "26cd0a23-15d6-44d7-bb27-3cec7237b00c",
+			"name": "Accept Reimbursement Fail",
+			"url": "http://127.0.0.1:5000/reimbursement/alter",
+			"time": 541,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"sending incomplete data": true
+			},
+			"testPassFailCounts": {
+				"sending incomplete data": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				541
+			],
+			"allTests": [
+				{
+					"sending incomplete data": true
+				}
+			]
+		},
+		{
+			"id": "178aa2ac-8992-4e2e-88fa-0a4b6bcc0251",
+			"name": "Reject Reimbursement Success",
+			"url": "http://127.0.0.1:5000/reimbursement/alter",
+			"time": 321,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"reimbursement status is 'Rejected' ": true,
+				"Body matches string": true,
+				"Schema is valid": true
+			},
+			"testPassFailCounts": {
+				"reimbursement status is 'Rejected' ": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Schema is valid": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				321
+			],
+			"allTests": [
+				{
+					"reimbursement status is 'Rejected' ": true,
+					"Body matches string": true,
+					"Schema is valid": true
+				}
+			]
+		},
+		{
+			"id": "9ee60b8d-fec4-4da8-abb7-764325ba5efa",
+			"name": "Reject Reimbursement Fail",
+			"url": "http://127.0.0.1:5000/reimbursement/alter",
+			"time": 124,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"sending incomplete data": true
+			},
+			"testPassFailCounts": {
+				"sending incomplete data": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				124
+			],
+			"allTests": [
+				{
+					"sending incomplete data": true
+				}
+			]
+		},
+		{
+			"id": "a069cdfc-d8a1-4c3c-b00c-629f291492bb",
+			"name": "Add Reimbursement Success",
+			"url": "http://127.0.0.1:5000/reimbursement",
+			"time": 297,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"add valid Reimbursement, returns Reimbursement": true
+			},
+			"testPassFailCounts": {
+				"add valid Reimbursement, returns Reimbursement": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				297
+			],
+			"allTests": [
+				{
+					"add valid Reimbursement, returns Reimbursement": true
+				}
+			]
+		},
+		{
+			"id": "d0f63274-d776-42e1-b74a-eec4348e96ab",
+			"name": "Add Reimbursement Fail",
+			"url": "http://127.0.0.1:5000/reimbursement",
+			"time": 128,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"add incorrect Reimbursement error message": true
+			},
+			"testPassFailCounts": {
+				"add incorrect Reimbursement error message": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				128
+			],
+			"allTests": [
+				{
+					"add incorrect Reimbursement error message": true
+				}
+			]
+		},
+		{
+			"id": "d246c49e-103f-459d-bba7-a495da1a48e8",
+			"name": "Get Reim. By Status Success",
+			"url": "http://127.0.0.1:5000/reimbursement/status",
+			"time": 167,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get reimbursement by status": true
+			},
+			"testPassFailCounts": {
+				"get reimbursement by status": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				167
+			],
+			"allTests": [
+				{
+					"get reimbursement by status": true
+				}
+			]
+		},
+		{
+			"id": "480b1f9b-49b8-444f-9400-f80ee236f54d",
+			"name": "Get Reim. By Invalid Status",
+			"url": "http://127.0.0.1:5000/reimbursement/status",
+			"time": 172,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get Reimbursement by invalid status, zero objects returned": true
+			},
+			"testPassFailCounts": {
+				"get Reimbursement by invalid status, zero objects returned": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				172
+			],
+			"allTests": [
+				{
+					"get Reimbursement by invalid status, zero objects returned": true
+				}
+			]
+		},
+		{
+			"id": "6d2e598a-ef93-47fb-8d39-bfae1ae055ba",
+			"name": "Home Success",
+			"url": "http://127.0.0.1:5000/",
+			"time": 255,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"go to home page/login": true
+			},
+			"testPassFailCounts": {
+				"go to home page/login": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				255
+			],
+			"allTests": [
+				{
+					"go to home page/login": true
+				}
+			]
+		},
+		{
+			"id": "977bb913-80f8-4c39-907d-bea452980742",
+			"name": "Reimbursement Page",
+			"url": "http://127.0.0.1:5000/reimbursement-page",
+			"time": 204,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"go to Reimbursement page": true
+			},
+			"testPassFailCounts": {
+				"go to Reimbursement page": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				204
+			],
+			"allTests": [
+				{
+					"go to Reimbursement page": true
+				}
+			]
+		},
+		{
+			"id": "27a6c691-91d3-4d0d-b9f8-9e38fff96210",
+			"name": "all Reimbursement by user Id",
+			"url": "http://127.0.0.1:5000/reimbursement",
+			"time": 173,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"get reimburement by user id": true
+			},
+			"testPassFailCounts": {
+				"get reimburement by user id": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				173
+			],
+			"allTests": [
+				{
+					"get reimburement by user id": true
+				}
+			]
+		},
+		{
+			"id": "9fa8318f-763e-448d-9955-697099f133b8",
+			"name": "Review Request Page",
+			"url": "http://127.0.0.1:5000/review-request",
+			"time": 226,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"go to review Reimbursement request page": true
+			},
+			"testPassFailCounts": {
+				"go to review Reimbursement request page": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				226
+			],
+			"allTests": [
+				{
+					"go to review Reimbursement request page": true
+				}
+			]
+		},
+		{
+			"id": "2eba4ecf-9abf-497b-b601-51abf0450693",
+			"name": "Logout Success",
+			"url": "http://127.0.0.1:5000/logout",
+			"time": 7,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Logout, return login page": true
+			},
+			"testPassFailCounts": {
+				"Logout, return login page": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Logout, return login page": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 4465,
+	"collection": {
+		"requests": [
+			{
+				"id": "1fc2bbe7-e310-412a-a016-d3c2543ee727",
+				"method": "POST"
+			},
+			{
+				"id": "02976171-f44e-43b5-b7ec-a49f09ed85cd",
+				"method": "POST"
+			},
+			{
+				"id": "094190de-fe1f-4cf1-be9c-7f00b77bafbf",
+				"method": "POST"
+			},
+			{
+				"id": "851f1a43-f132-49c7-a37c-a66b36ceb2eb",
+				"method": "DELETE"
+			},
+			{
+				"id": "668634b1-a718-4b89-b95e-dcad30e59360",
+				"method": "DELETE"
+			},
+			{
+				"id": "bc86501f-50d3-43d3-8961-ecaba858ff30",
+				"method": "DELETE"
+			},
+			{
+				"id": "f2ada937-716c-4328-b35e-152bf3b8a7d4",
+				"method": "DELETE"
+			},
+			{
+				"id": "431d90b5-9fe2-4bc1-af58-06f75bfa194f",
+				"method": "POST"
+			},
+			{
+				"id": "e233d171-dc0b-40c3-928b-9080f74ff0f4",
+				"method": "POST"
+			},
+			{
+				"id": "26cd0a23-15d6-44d7-bb27-3cec7237b00c",
+				"method": "POST"
+			},
+			{
+				"id": "178aa2ac-8992-4e2e-88fa-0a4b6bcc0251",
+				"method": "POST"
+			},
+			{
+				"id": "9ee60b8d-fec4-4da8-abb7-764325ba5efa",
+				"method": "POST"
+			},
+			{
+				"id": "a069cdfc-d8a1-4c3c-b00c-629f291492bb",
+				"method": "POST"
+			},
+			{
+				"id": "d0f63274-d776-42e1-b74a-eec4348e96ab",
+				"method": "POST"
+			},
+			{
+				"id": "d246c49e-103f-459d-bba7-a495da1a48e8",
+				"method": "POST"
+			},
+			{
+				"id": "480b1f9b-49b8-444f-9400-f80ee236f54d",
+				"method": "POST"
+			},
+			{
+				"id": "6d2e598a-ef93-47fb-8d39-bfae1ae055ba",
+				"method": "GET"
+			},
+			{
+				"id": "977bb913-80f8-4c39-907d-bea452980742",
+				"method": "GET"
+			},
+			{
+				"id": "27a6c691-91d3-4d0d-b9f8-9e38fff96210",
+				"method": "GET"
+			},
+			{
+				"id": "9fa8318f-763e-448d-9955-697099f133b8",
+				"method": "GET"
+			},
+			{
+				"id": "2eba4ecf-9abf-497b-b601-51abf0450693",
+				"method": "GET"
+			}
+		]
+	}
+}

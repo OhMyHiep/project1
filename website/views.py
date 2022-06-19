@@ -1,4 +1,3 @@
-from cgitb import reset
 from flask import Blueprint, jsonify, request, render_template
 from flask_login import login_required, current_user
 from controller import EmployeeController, CategoryController, ReimbursementController
@@ -31,7 +30,7 @@ def handleReimbursements():
         return jsonify(allRequests)
     if request.method=="POST":
         #print(f"Post Method{request.form}" )
-        return ReimbursementController.addReimbursement(request.form)
+        return jsonify(ReimbursementController.addReimbursement(request.form))
     if request.method=="DELETE":
         #jsonify(ReimbursementController.getReimbursementsByStatus("Cancelled"))
         data=json.loads(request.data)
