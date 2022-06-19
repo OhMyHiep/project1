@@ -7,7 +7,7 @@ from controller import CategoryController
 def addReimbursement(data):
     if(ReimbursementService.isValidReimbursement(data)):
         reimbursement=ReimbursementService.addReimbursement(data)
-        return reimbursement if reimbursement else "failed add"
+        return render_template("home.html", employee=current_user, reimbursement=reimbursement) if reimbursement else "failed add"
     return "Wrong input for Reimbursement Request"
     
     

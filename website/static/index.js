@@ -101,7 +101,7 @@ function cancelRequest(req_id)
     followPath()
 }
 
-let DeleteRequest=document.querySelector("#DeleteRequest")
+let DeleteRequest=document.querySelector("#DeleteRequestBtn")
 
 
 DeleteRequest.addEventListener("click",followDelPath)
