@@ -7,7 +7,7 @@ from controller import CategoryController
 def addReimbursement(data):
     if(ReimbursementService.isValidReimbursement(data)):
         reimbursement=ReimbursementService.addReimbursement(data)
-        return redirect(url_for('views.home')) if reimbursement else "failed add"
+        return render_template("home.html", employee=current_user, reimbursement=reimbursement) if reimbursement else "failed add"
     return "Wrong input for Reimbursement Request"
     
     
@@ -31,7 +31,7 @@ def getReimbursementsByStatus(requestData):
 def alterReimbursement(requestData):
     if ReimbursementService.dataExistToAlterRequest(requestData):
         return ReimbursementService.alterReimbursement(requestData)
-    return "bad request 400"
+    return {"response":"bad request", "status":400}
 
 def getReimbursementView():
     categories=CategoryController.getAllCategories()

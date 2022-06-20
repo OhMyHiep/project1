@@ -1,0 +1,1091 @@
+{
+	"info": {
+		"_postman_id": "38181560-0d90-4926-b326-12b4bb3b0457",
+		"name": "project1 postman tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20155153"
+	},
+	"item": [
+		{
+			"name": "delete & cancel Reim. scenario",
+			"item": [
+				{
+					"name": "Login Fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"const $ = cheerio.load(pm.response.text())",
+									"",
+									"pm.test(\"Login fail return error message\", () => { ",
+									"    pm.expect($.text().trim()).to.equals('failed login')",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "testing",
+									"type": "text"
+								},
+								{
+									"key": "password1",
+									"value": "tes",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/login",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"const $ = cheerio.load(pm.response.text())",
+									"",
+									"pm.test(\"login, return Home Page\", () => { ",
+									"    pm.expect($('title').text().trim()).to.equals('Home')",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "testing",
+									"type": "text"
+								},
+								{
+									"key": "password1",
+									"value": "testing",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/login",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Reim. to delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let reimbursement_id=pm.response.json().reimbursement_id;",
+									"pm.environment.set(\"reimbursement_id\",reimbursement_id)",
+									"console.log(reimbursement_id)",
+									"",
+									"pm.test(\"add valid Reimbursement, returns Reimbursement\", () => { ",
+									"    pm.expect(reimbursement_id).not.eql(null)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "add to delete",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/reimbursement",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"reimbursement"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Reimbursement",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"const $ = cheerio.load(pm.response.text())",
+									"",
+									"pm.test(\"cancel reimbursement,return message\", () => { ",
+									"    pm.expect($.text().trim().includes('Cancelled Successfully')).to.equals(true)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"req_id\": \"{{reimbursement_id}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/reimbursement",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"reimbursement"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel already canceled reim.",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"const $ = cheerio.load(pm.response.text())",
+									"",
+									"pm.test(\"cancel already cancled reimbursement\", () => { ",
+									"    pm.expect($.text().trim()).to.equal('\"Record is alrady Cancelled\"');",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"req_id\": \"{{reimbursement_id}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/reimbursement",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"reimbursement"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Reimbursement",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"const $ = cheerio.load(pm.response.text())",
+									"",
+									"pm.test(\"Delete reimbursement\", () => { ",
+									"    pm.expect($.text().trim().includes('Deleted Successfully')).to.equals(true)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"req_id\": \"{{reimbursement_id}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/delreimbursement",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"delreimbursement"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Deleted Reim.",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const $ = cheerio.load(pm.response.text())",
+									"",
+									"pm.test(\"Delete already Deleted reimbursement\", () => { ",
+									"    pm.expect($.text().trim().includes('No Data To Delete')).to.equals(true)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"req_id\": \"{{reimbursement_id}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/delreimbursement",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"delreimbursement"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Accept Reimbursement Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"let response= pm.response.json()",
+							"",
+							"console.log(response)",
+							"",
+							"var Ajv = require('ajv'),",
+							"    ajv = new Ajv({ logger: console, allErrors: true }),schema= {",
+							"//   \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"amount\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"category_id\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"comments\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"description\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"employee_id\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"reimbursement_id\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"status\": {",
+							"      \"type\": \"string\"",
+							"    }",
+							"  },",
+							"  \"required\": [",
+							"    \"amount\",",
+							"    \"category_id\",",
+							"    \"comments\",",
+							"    \"description\",",
+							"    \"employee_id\",",
+							"    \"reimbursement_id\",",
+							"    \"status\"",
+							"  ]",
+							"}",
+							"",
+							"pm.test(\"reimbursement status is 'Accepted' \", function () {",
+							"    pm.expect(response['status']).to.eql(\"Accepted\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(response[\"comments\"].length).to.be.above(0);",
+							"});",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"   pm.expect(ajv.validate(schema, pm.response.json()), JSON.stringify(ajv.errors)).to.be.true;",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"reimbursement_id\":16,\n     \"comments\": \"testing accept\",\n     \"status\":\"Accepted\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/reimbursement/alter",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"reimbursement",
+						"alter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Accept Reimbursement Error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"sending incorrect json syntax\", function () {",
+							"    pm.expect(responseCode.code).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"reimbursement_id\":16,\n     \"comments\": \"testing accept\",\n    //  \"status\":\"Accepted\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/reimbursement/alter",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"reimbursement",
+						"alter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Accept Reimbursement Fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"sending incomplete data\", function () {",
+							"    pm.expect(pm.response.json().status).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"reimbursement_id\":16,\n    \"comments\": \"testing fail\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/reimbursement/alter",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"reimbursement",
+						"alter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reject Reimbursement Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"let response= pm.response.json()",
+							"",
+							"console.log(response)",
+							"",
+							"var Ajv = require('ajv'),",
+							"    ajv = new Ajv({ logger: console, allErrors: true }),schema= {",
+							"//   \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"amount\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"category_id\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"comments\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"description\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"employee_id\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"reimbursement_id\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"status\": {",
+							"      \"type\": \"string\"",
+							"    }",
+							"  },",
+							"  \"required\": [",
+							"    \"amount\",",
+							"    \"category_id\",",
+							"    \"comments\",",
+							"    \"description\",",
+							"    \"employee_id\",",
+							"    \"reimbursement_id\",",
+							"    \"status\"",
+							"  ]",
+							"}",
+							"",
+							"pm.test(\"reimbursement status is 'Rejected' \", function () {",
+							"    pm.expect(response['status']).to.eql(\"Rejected\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(response[\"comments\"].length).to.be.above(0);",
+							"});",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"   pm.expect(ajv.validate(schema, pm.response.json()), JSON.stringify(ajv.errors)).to.be.true;",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"reimbursement_id\":15,\n    \"comments\": \"testing request\",\n    \"status\":\"Rejected\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/reimbursement/alter",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"reimbursement",
+						"alter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reject Reimbursement Fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"sending incomplete data\", function () {",
+							"    pm.expect(pm.response.json().status).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"reimbursement_id\":15,\n    \"status\":\"Rejected\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/reimbursement/alter",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"reimbursement",
+						"alter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Reimbursement Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"",
+							"",
+							"pm.test(\"add valid Reimbursement, returns Reimbursement\", () => { ",
+							"    pm.expect(pm.response.json().reimbursement_id).not.eql(null);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "category_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "postman test",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/reimbursement",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"reimbursement"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Reimbursement Fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"const $ = cheerio.load(pm.response.text())",
+							"",
+							"pm.test(\"add incorrect Reimbursement error message\", () => { ",
+							"    pm.expect($.text().trim()).to.equals('\"Wrong input for Reimbursement Request\"')",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "category_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "postman test",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "5",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/reimbursement",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"reimbursement"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Reim. By Status Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"get reimbursement by status\",()=>{",
+							"    pm.expect(pm.response.json().length).to.be.above(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\":\"pending\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/reimbursement/status",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"reimbursement",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Reim. By Invalid Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"get Reimbursement by invalid status, zero objects returned\",()=>{",
+							"    pm.expect(pm.response.json().length).to.equal(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\":\"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/reimbursement/status",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"reimbursement",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Home Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"const $ = cheerio.load(pm.response.text())",
+							"",
+							"pm.test(\"go to home page/login\", () => { ",
+							"    pm.expect($('title').text().trim()).to.be.oneOf(['Home','Login'])",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reimbursement Page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const $ = cheerio.load(pm.response.text())",
+							"",
+							"pm.test(\"go to Reimbursement page\", () => { ",
+							"    pm.expect($('title').text().trim()).to.equals('Reimbursement')",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/reimbursement-page",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"reimbursement-page"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all Reimbursement by user Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"get reimburement by user id\",()=>{",
+							"    pm.expect(pm.response.json().length).to.be.above(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/reimbursement",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"reimbursement"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Review Request Page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const $ = cheerio.load(pm.response.text())",
+							"",
+							"pm.test(\"go to review Reimbursement request page\", () => { ",
+							"    pm.expect($('title').text().trim()).to.equals('Review Requests')",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/review-request",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"review-request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"const $ = cheerio.load(pm.response.text());",
+							"console.log($(\"title\").text())",
+							"",
+							"pm.test(\"Logout, return login page\",()=>{",
+							"",
+							"    pm.expect($('title').text().trim()).to.equals('Login');",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/logout",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

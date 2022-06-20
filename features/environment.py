@@ -5,10 +5,16 @@ from POM.reviewRequest import ReviewRequest
 from POM.Homepage import HomePage
 from POM.addReimbursement import ReimbursementPage
 from POM.NavBar import NavBar
+import os 
 
 def before_all(context: Context):
     # We need to add a driver to the context
-    context.driver = webdriver.Chrome("/Users/Sachin/projects/project1/drivers/chromedriver.exe")
+    sachinPath="/Users/Sachin/projects/project1/drivers/chromedriver.exe"
+    hiepPath="/Users/hiephuynh/Documents/revature/project1/drivers/chromedriver"
+    if os.path.isfile(sachinPath):
+        context.driver = webdriver.Chrome(sachinPath)
+    else:
+        context.driver = webdriver.Chrome(hiepPath)
     # context.driver.get("https://www.google.com")
     # We need to add all POMS to the context
     print(f'\n context driver here: {context.driver}\n')
