@@ -30,7 +30,7 @@ def handleReimbursements():
         return jsonify(allRequests)
     if request.method=="POST":
         #print(f"Post Method{request.form}" )
-        return ReimbursementController.addReimbursement(request.form)
+        return ReimbursementController.addReimbursement(json.loads(request.data))
     if request.method=="DELETE":
         #jsonify(ReimbursementController.getReimbursementsByStatus("Cancelled"))
         data=json.loads(request.data)

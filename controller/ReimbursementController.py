@@ -1,13 +1,13 @@
 from models.ORM_models import Employee, Reimbursement
 from service import ReimbursementService
 from flask_login import current_user
-from flask import render_template, url_for, redirect
+from flask import jsonify, render_template, url_for, redirect
 from controller import CategoryController
 
 def addReimbursement(data):
     if(ReimbursementService.isValidReimbursement(data)):
         reimbursement=ReimbursementService.addReimbursement(data)
-        return render_template("home.html", employee=current_user, reimbursement=reimbursement) if reimbursement else "failed add"
+        return jsonify(reimbursement) if reimbursement else "failed add"
     return "Wrong input for Reimbursement Request"
     
     

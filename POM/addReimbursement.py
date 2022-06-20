@@ -26,7 +26,7 @@ class ReimbursementPage:
         return self.driver.find_element(By.XPATH,"//*[@id='request']/*[@type='number']")
 
     def submitBtn(self):
-        return self.driver.find_element(By.XPATH,"//*[@id='request']/span/button")
+        return self.driver.find_element(By.XPATH,'//*[@id="request"]/span/input')
 
     def getCurrentPageTitle(self):
         return self.driver.title

@@ -20,6 +20,28 @@ async function alterReimbursement(request_id,status){
     })
 }
     
+async function addReimbursement(){
+    let category= document.getElementById('inputGroupSelect01').value;
+    let description= document.getElementById("description").value;
+    let amount=document.getElementById("amount").value;
+
+    fetch('/reimbursement',{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify( {
+            "description":description,
+            "category_id":category,
+            "amount":amount
+        })
+    }).then((_res)=> {
+        return _res.json()
+    }).then (data => {
+        console.log(data)
+    })
+    location.href='http://127.0.0.1:5000'
+}
+
+
 let body = document.querySelector("body")
 
 let ViewAllContainer= document.querySelector("#ViewAllContainer")
