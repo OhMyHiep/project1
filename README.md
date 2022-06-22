@@ -28,7 +28,9 @@ create an expense reimbursement system for a small group. This program will allo
     - you should have your own database as the one in this project may no longer be availibile
     - make sure python3 is installed
     - clone the poject 
-    - ``` git clone <this project url>```
+    ```
+    git clone <this project url>
+    ```
 - install pip
 ```
 python3 -m pip install --user --upgrade pip
