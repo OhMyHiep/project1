@@ -30,15 +30,25 @@ create an expense reimbursement system for a small group. This program will allo
     - clone the poject 
     - ``` git clone <this project url>```
 - install pip
-- ```python3 -m pip install --user --upgrade pip```
+```
+python3 -m pip install --user --upgrade pip
+```
 - install virtual environment
-- ```python3 -m pip install --user virtualenv```
+```
+python3 -m pip install --user virtualenv
+```
 - create virtual environment
-- ```python3 -m venv env```
+```
+python3 -m venv env
+```
 - go into the enivironment
-- ```cd env/bin```
+```
+cd env/bin
+```
 - actitvate the environment
-- ```source activate```
+```
+source activate
+```
 - install the dependencies 
 ```
 pip install sqlalchemy
