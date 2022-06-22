@@ -63,9 +63,13 @@ pip install sqlalchemy_utils
 pip install pytest
 ```
 - go to project root folder
-```cd ../..```
+```
+cd ../..
+```
 - run the project
-```python main.py```
+```
+python main.py
+```
 - the application will be availible on http://localhost:5000 
 
 ### Credits: 
