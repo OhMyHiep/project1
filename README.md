@@ -73,7 +73,7 @@ python main.py
 - the application will be availible on http://localhost:5000 
 
 ### Credits: 
-https://github.com/sachingarg5
-https://github.com/OhMyHiep
+- https://github.com/sachingarg5
+- https://github.com/OhMyHiep
  
 
