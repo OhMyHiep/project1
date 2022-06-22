@@ -2,7 +2,7 @@
 
 
 ## Description
-create an expense reimbursement system for a small group. This program will allow employees to create reimbursement requests for their business expenditures, while also providing a way to track the amount of money they have spent.
+Create an expense reimbursement system. This program will allow employees to create reimbursement requests for their business expenditures, while also providing a way to track the amount of money they have spent.
 
 
 ### Key Features
